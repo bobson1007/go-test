@@ -16,6 +16,7 @@ func main() {
 	router.Use(middleware.HandleError())
 
 	router.POST(enum.CreatePolicyPath, api.CreatePolicy)
+	router.GET(enum.CreatePolicyPath, api.CreatePolicy)
 
 	_ = router.Run(":8081")
 }
