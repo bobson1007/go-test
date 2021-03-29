@@ -11,6 +11,9 @@ import (
 
 func AdminLogger() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		test(c)
+		//printLog(c)
+
 		adminLogInit(c)
 		c.Next()
 		adminLogSender(c)
@@ -26,20 +29,21 @@ func adminLogInit(c *gin.Context) {
 		var log model.AdminLog
 		log.SetOperation(api.Operation).SetFunction(api.Function).SetAlertLevel(api.AlertLevel)
 		c.Set("logModel", log)
+	} else {
+		fmt.Println("enum無該api，不做初始化")
 	}
 }
 
 func adminLogSender(c *gin.Context) {
 	fmt.Println("進入LogSender")
-
 	log, ok := c.Get("logModel")
-	adminLog := log.(model.AdminLog)
-	printLog(c)
 
 	// TODO 處理request
 
 	if ok {
 		// 發送日誌給log-service
+		adminLog := log.(model.AdminLog)
+		printLog(c)
 		fmt.Println("發送adminLog : ", adminLog.Operation, adminLog.Function, adminLog.AlertLevel)
 
 	} else {
@@ -48,12 +52,12 @@ func adminLogSender(c *gin.Context) {
 }
 
 func printLog(c *gin.Context) {
+	// request body只能讀取一次的解決辦法
 	data, err := c.GetRawData()
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-	fmt.Printf("data: %v\n", string(data))
-
+	//fmt.Printf("data: %v\n", string(data))
 	c.Request.Body = ioutil.NopCloser(bytes.NewBuffer(data)) // 关键点
 
 	accessLogMap := make(map[string]interface{})
@@ -67,5 +71,16 @@ func printLog(c *gin.Context) {
 	accessLogMap["request_client_ip"] = c.ClientIP()
 	accessLogMap["request_body"] = c.Request.Body
 
-	fmt.Println("========>", accessLogMap)
+	fmt.Println("========param in path========>")
+	fmt.Println(c.Params)
+	fmt.Println("========param not in path========>")
+	fmt.Println(c.Request.URL.Query())
+	fmt.Println("========param in body========>")
+	fmt.Println(bytes.NewBuffer(data))
+	fmt.Println("========param in x-www-form-urlencode========>")
+	fmt.Println(c.Request.Form)
+
+}
+
+func test(c *gin.Context) {
 }
