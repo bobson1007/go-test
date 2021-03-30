@@ -19,7 +19,7 @@ func main() {
 	router.GET(enum.CreatePolicyPath, api.CreatePolicy)
 	router.PATCH(enum.CreatePolicyPath, api.CreatePolicy)
 	router.GET("/api/v1/license", api.CreatePolicy)
-	router.GET("/policy/:type/:user/:age", api.CreatePolicy)
+	router.GET(enum.UpdatePolicyName, api.CreatePolicy)
 
 	_ = router.Run(":8081")
 }

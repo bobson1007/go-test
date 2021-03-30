@@ -4,14 +4,14 @@ import (
 	"reflect"
 )
 
-type api struct {
+type Api struct {
 	Operation  string `json:"operation"`
 	Function   string `json:"function"`
 	AlertLevel int    `json:"alertLevel"`
 	ModelName  string
 }
 
-var apiMap = make(map[string]api)
+var apiMap = make(map[string]Api)
 
 /**
 以map實現enum，存放adminLog初始化需要的固定資訊
@@ -20,21 +20,22 @@ func init() {
 	addApiEnum(CreatePolicyPath, "policy", "createPolicy", 2)
 	addApiEnum(UpdatePolicyPath, "policy", "updatePolicy", 2)
 	addApiEnum(RemovePolicyPath, "policy", "removePolicy", 2)
+	addApiEnum(UpdatePolicyName, "policy", "removePolicy", 2)
 }
 
 func addApiEnum(path string, operation string, function string, alertLevel int) {
-	api := new(api)
+	api := new(Api)
 	api.Operation = operation
 	api.Function = function
 	api.AlertLevel = alertLevel
-	//api.ModelName = reflect.TypeOf(model).Name()
+	//Api.ModelName = reflect.TypeOf(model).Name()
 	apiMap[path] = *api
 
 	//registerType(reflect.TypeOf(model))
 
 }
 
-func GetApiMap() map[string]api {
+func GetApiMap() map[string]Api {
 	return apiMap
 }
 
