@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"test/src/api"
-	"test/src/enum"
+	. "test/src/enum"
 	"test/src/middleware"
 )
 
@@ -12,14 +12,27 @@ func main() {
 
 	// 處理管理者日誌
 	router.Use(middleware.AdminLogger())
-	// 原本的HandleError需要加入error日誌的處理
+	// TODO　原本的HandleError需要加入error日誌的處理
 	router.Use(middleware.HandleError())
 
-	router.POST(enum.CreatePolicyPath, api.CreatePolicy)
-	router.GET(enum.CreatePolicyPath, api.CreatePolicy)
-	router.PATCH(enum.CreatePolicyPath, api.CreatePolicy)
-	router.GET("/api/v1/license", api.CreatePolicy)
-	router.GET(enum.UpdatePolicyName, api.CreatePolicy)
+	v1 := router.Group(GroupApiV1)
+
+	v1.GET(GetAgentPolicyPath, api.DoNothing)
+	v1.POST(UploadPolicyPath, api.DoNothing)
+
+	v1.GET(GetAllPolicyPath, api.DoNothing)
+	v1.POST(CreatePolicyPath, api.DoNothing)
+	v1.PUT(UpdatePolicyContentPath, api.DoNothing)
+	v1.GET(GetOnePolicyPath, api.DoNothing)
+	v1.PATCH(UpdatePolicyNamePath, api.DoNothing)
+	v1.DELETE(DeletePolicyPath, api.DoNothing)
+
+	v1.GET(GetPublicKeyPath, api.DoNothing)
+	v1.GET(GetLicenseEnablePath, api.DoNothing)
+	v1.POST(UploadLicensePath, api.DoNothing)
+	v1.GET(GetLicensePath, api.DoNothing)
+
+	v1.GET(DownloadPolicyTemplatePath, api.DoNothing)
 
 	_ = router.Run(":8081")
 }

@@ -1,8 +1,26 @@
 package enum
 
 const (
-	CreatePolicyPath = "/createPolicy"
-	UpdatePolicyPath = "/updatePolicy"
-	RemovePolicyPath = "/removePolicy"
-	UpdatePolicyName = "/policy/:type/:name/:policyId"
+	GroupApiV1 = "/api/v1"
+
+	AgentRoot          = "/agent"
+	GetAgentPolicyPath = AgentRoot
+	UploadPolicyPath   = AgentRoot + "/template"
+
+	PolicyRoot              = "/policy"
+	GetAllPolicyPath        = PolicyRoot + "/:type"
+	CreatePolicyPath        = PolicyRoot + "/:type"
+	UpdatePolicyContentPath = PolicyRoot
+	GetOnePolicyPath        = PolicyRoot + "/:type/:policyId"
+	UpdatePolicyNamePath    = PolicyRoot + "/:type/:policyId"
+	DeletePolicyPath        = PolicyRoot + "/:policyId"
+
+	LicenseRoot          = "license"
+	GetPublicKeyPath     = LicenseRoot + "/key"
+	GetLicenseEnablePath = LicenseRoot + "/enable"
+	UploadLicensePath    = LicenseRoot
+	GetLicensePath       = LicenseRoot
+
+	TemplateRoot               = "/template"
+	DownloadPolicyTemplatePath = TemplateRoot
 )

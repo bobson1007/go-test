@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// AdminLog - Record Admin Operation Detail
+// lincense-service內的AdminLog模型
 type AdminLog struct {
 	Operation     string      `json:"operation"`
 	Function      string      `json:"function"`
@@ -63,5 +63,15 @@ func (a *AdminLog) SetFunction(function string) *AdminLog {
 
 func (a *AdminLog) SetAlertLevel(alertLevel int) *AdminLog {
 	a.AlertLevel = alertLevel
+	return a
+}
+
+func (a *AdminLog) SetIP(ip string) *AdminLog {
+	a.IP = ip
+	return a
+}
+
+func (a *AdminLog) SetUpdateValue(updateValue interface{}) *AdminLog {
+	a.UpdateValue = updateValue
 	return a
 }

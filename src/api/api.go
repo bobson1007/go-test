@@ -8,7 +8,7 @@ import (
 /**
 api內不允許有Logger相關的code
 */
-func CreatePolicy(c *gin.Context) {
+func DoNothing(c *gin.Context) {
 	fmt.Println("進入Api")
 	c.Data(200, "text/plain", []byte("success"))
 }
