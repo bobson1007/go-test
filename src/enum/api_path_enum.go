@@ -2,7 +2,9 @@ package enum
 
 const (
 	GroupApiV1 = "/api/v1"
+)
 
+const (
 	AgentRoot          = "/agent"
 	GetAgentPolicyPath = AgentRoot
 	UploadPolicyPath   = AgentRoot + "/template"
